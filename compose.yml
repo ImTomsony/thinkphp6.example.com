@@ -23,7 +23,6 @@ services:
       - ./www:/www
     environment:
      TZ: ${TZ}
-    command: cd /www && composer create-project topthink/think thinkphp6.example.com
     restart: unless-stopped
 
   db:
