@@ -1,0 +1,9 @@
+#log
+nginx/log/
+
+#data
+mysql/data/
+redis/data/
+
+#www
+www/

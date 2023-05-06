@@ -1,0 +1,47 @@
+version: '1.1'
+services:
+  web:
+    container_name: nginx
+    image: nginx:${NGINX_TAG}
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/log:/var/log/nginx
+      - ./www:/www
+    environment:
+      TZ: ${TZ}
+    depends_on:
+      - php
+    restart: unless-stopped
+
+  php:
+    container_name: php-fpm
+    image: chentang/php:${PHP_TAG}
+    volumes:
+      - ./www:/www
+    environment:
+     TZ: ${TZ}
+    command: cd /www && composer create-project topthink/think thinkphp6.example.com
+    restart: unless-stopped
+
+  db:
+    container_name: mysql
+    image: mysql:${MYSQL_TAG}
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    restart: unless-stopped
+
+  redis:
+    container_name: redis
+    image: redis:{$REDIS_TAG}
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: unless-stopped
