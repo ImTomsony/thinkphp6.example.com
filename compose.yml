@@ -38,7 +38,7 @@ services:
 
   redis:
     container_name: redis
-    image: redis:{$REDIS_TAG}
+    image: redis:${REDIS_TAG}
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
       - ./redis/users.acl:/usr/local/redis/users.acl
