@@ -41,7 +41,7 @@ services:
     image: redis:${REDIS_TAG}
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./redis/users.acl:/usr/local/redis/users.acl
+      - ./redis/users.acl:/usr/local/etc/redis/users.acl
       - ./redis/data:/data
     command: redis-server /usr/local/etc/redis/redis.conf
     restart: unless-stopped
