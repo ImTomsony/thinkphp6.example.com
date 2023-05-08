@@ -25,7 +25,7 @@ services:
      TZ: ${TZ}
     restart: unless-stopped
 
-  db:
+  mysql:
     container_name: mysql
     image: mysql:${MYSQL_TAG}
     ports:
@@ -45,3 +45,8 @@ services:
       - ./redis/data:/data
     command: redis-server /usr/local/etc/redis/redis.conf
     restart: unless-stopped
+
+networks:
+  default:
+    name: thinkphp6.example.com
+    driver: bridge
